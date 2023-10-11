@@ -1,2 +1,2 @@
 # mymandible
-This is the code behind the mymandible.com project. 
+This is the code powering the mymandible.com project. Still under active development!
