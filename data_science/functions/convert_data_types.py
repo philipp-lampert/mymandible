@@ -45,5 +45,3 @@ def convert_data_types(df):
             for data_type in ["category", "string", "UInt8", "UInt16", "Float32"]:
                 if column in data_types[data_type]:
                     df[column] = df[column].astype(data_type)
-
-    return df
