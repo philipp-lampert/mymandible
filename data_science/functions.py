@@ -34,17 +34,18 @@ def convert_data_types(df):
     }
 
     for column in df.columns:
-        for data_type in ["category", "string", "UInt8", "UInt16", "Float32"]:
-            if column in data_types[data_type]:
-                df[column] = df[column].astype(data_type)
-            elif column in data_types["boolean"]:
-                df[column] = np.where(
-                    df[column] == "True",
-                    True,
-                    np.where(df[column] == "False", False, pd.NA),
-                )
-                df[column] = df[column].astype("boolean")
-            elif "___" in column:
-                df[column] = df[column].astype("boolean")
-            elif column.startswith("days_to_"):
-                df[column] = df[column].astype("UInt16")
+        if "___" in column:
+            df[column] = df[column].astype("boolean")
+        elif column in data_types["boolean"]:
+            df[column] = np.where(
+                df[column] == "True",
+                True,
+                np.where(df[column] == "False", False, df[column]]),
+            )
+            df[column] = df[column].astype("boolean")
+        elif column.startswith("days_to_"):
+            df[column] = df[column].astype("UInt16")
+        else:
+            for data_type in ["category", "string", "UInt8", "UInt16", "Float32"]:
+                if column in data_types[data_type]:
+                    df[column] = df[column].astype(data_type)
