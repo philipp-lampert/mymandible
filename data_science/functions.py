@@ -14,10 +14,14 @@ def convert_data_types(df):
         "category": {
             "indication",
             "prior_flap",
+            "flap_revision",
             "flap_donor_site",
+            "plate_type",
             "long_plate_thickness",
             "tmj_replacement_type",
             "flap_segment_count",
+            "flap_loss_type",
+            "imaging",
         },
         "string": {
             "which_autoimmune_disease",
