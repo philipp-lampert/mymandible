@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 def convert_data_types(df):
@@ -40,7 +41,7 @@ def convert_data_types(df):
                 df[column] = np.where(
                     df[column] == "True",
                     True,
-                    np.where(df[column] == "False", False, df[column]),
+                    np.where(df[column] == "False", False, pd.NA),
                 )
                 df[column] = df[column].astype("boolean")
             elif "___" in column:
