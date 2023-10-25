@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def convert_data_types(df):
     data_types = {
         "boolean": {
