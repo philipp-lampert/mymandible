@@ -38,7 +38,7 @@ class threshold_optimized_metrics:
 
 class preprocessing:
     
-    def get_x_y(df, outcome, min_follow_up_days, scaler, drop_cols, inverse_pos):
+    def get_x_y(df, outcome, days_to_outcome, max_days_to_outcome, min_follow_up_days, scaler, drop_cols, inverse_pos):
         df = df.drop(columns=drop_cols)
         first_outcome_var = df.columns.get_loc('days_to_follow_up')
         predictors = df.columns[:first_outcome_var].tolist()
@@ -46,8 +46,12 @@ class preprocessing:
         data = df[df['days_to_follow_up'] >= min_follow_up_days].copy()
         data['days_to_flap_loss'] = data['days_to_flap_loss'].fillna(10000)
         data = data[data['days_to_flap_loss'] >= min_follow_up_days]
+        
+        if data[days_to_outcome] > max_days_to_outcome:
+            data[outcome] = False
+            
         data = data[predictors + [outcome]].dropna()
-
+        
         if scaler != 'None':
             numeric_columns = data[predictors].select_dtypes(np.number).columns.tolist()
             data[numeric_columns] = scaler.fit_transform(data[numeric_columns])

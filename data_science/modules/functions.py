@@ -47,7 +47,7 @@ class preprocessing:
         data['days_to_flap_loss'] = data['days_to_flap_loss'].fillna(10000)
         data = data[data['days_to_flap_loss'] >= min_follow_up_days]
         data = data[predictors + [outcome]].dropna()
-
+        
         if scaler != 'None':
             numeric_columns = data[predictors].select_dtypes(np.number).columns.tolist()
             data[numeric_columns] = scaler.fit_transform(data[numeric_columns])
